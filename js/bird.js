@@ -9,7 +9,7 @@ import {
 
 export class Bird {
     constructor(x, y, acceleration, downFlapImage, midFlapImage, upFlapImage, jumpLenPerClick) {
-        this.x = x || ~~(GAME_BACKGROUND_IMG_WIDTH / 2);
+        this.x = x || ~~(GAME_BACKGROUND_IMG_WIDTH / 6);
         this.y = y || ~~(GAME_BACKGROUND_IMG_HEIGHT / 2);
         this.acceleration = acceleration || ACCELERATION;
 
@@ -21,8 +21,8 @@ export class Bird {
         this.currentImageIndex = 1;
         this.imageDirection = 1;
 
-        this.imageWidth = this.image.width;
-        this.imageHeight = this.image.height;
+        this.width = this.image.width;
+        this.height = this.image.height;
 
         this.speed = 1;
 
@@ -35,7 +35,7 @@ export class Bird {
         this.fallRate = 1;
         this.falling = true;
 
-        this.jumpLenPerClick = jumpLenPerClick || 20;
+        this.jumpLenPerClick = jumpLenPerClick || 30;
 
         this.paused = false;
 

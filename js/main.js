@@ -31,7 +31,7 @@ class FlappyBird extends Canvas {
     }
 
     handleGameOver = () => {
-
+        this.pause()
     }
 
     animateBackground = () => {
@@ -43,13 +43,20 @@ class FlappyBird extends Canvas {
     }
 
     animateBird = () => {
-        this.ctx.drawImage(this.bird.image, this.bird.x, this.bird.y, 10, 10);
+        this.ctx.drawImage(this.bird.image, this.bird.x, this.bird.y);
+    }
+
+    checkCollision = () => {
+        if ((this.bird.y <= 0) || (this.bird.y + this.bird.height) >= this.height) this.handleGameOver();
     }
 
     render = () => {
-        this.clearCanvas();
+        if (!this.paused) {
+            this.clearCanvas();
 
-        this.animateBird();
+            this.animateBird();
+            this.checkCollision();
+        }
 
         requestAnimationFrame(this.render);
     }
@@ -62,6 +69,10 @@ class FlappyBird extends Canvas {
         this.addEventListeners();
         this._initialRun();
     }
+
+    pause = () => this.paused = true;
+
+    play = () => this.paused = false;
 }
 
 function runFlappyBird(e) {
@@ -75,7 +86,7 @@ function runFlappyBird(e) {
 }
 
 function main() {
-    document.addEventListener('keypress', runFlappyBird)
+    document.addEventListener('keypress', runFlappyBird);
 }
 
 main();

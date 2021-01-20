@@ -8,7 +8,10 @@ export class Canvas {
         this.canvas.width = CANVAS_WIDTH;
         this.canvas.height = CANVAS_HEIGHT;
 
-        this.pause = true;
+        this.width = CANVAS_WIDTH;
+        this.height = CANVAS_HEIGHT;
+
+        this.paused = true;
         this.first = true;
     }
 
@@ -30,7 +33,7 @@ export class Canvas {
     }
 
     _run = () => {
-        this.pause = false;
+        this.paused = false;
         this.first ? this.initialRun() : null;
     }
 
