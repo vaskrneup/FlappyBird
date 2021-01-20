@@ -1,6 +1,12 @@
 import {Canvas} from "./canvas.js";
 import {Bird} from "./bird.js";
-import {BIRD_DOWN_FLAP_IMG, BIRD_MID_FLAP_IMG, BIRD_UP_FLAP_IMG} from "./constants.js";
+import {
+    BIRD_DOWN_FLAP_IMG,
+    BIRD_MID_FLAP_IMG,
+    BIRD_UP_FLAP_IMG,
+    GAME_BACKGROUND_IMG_WIDTH,
+    GAME_BASE_IMG_WIDTH
+} from "./constants.js";
 
 
 class FlappyBird extends Canvas {
@@ -13,6 +19,12 @@ class FlappyBird extends Canvas {
         this.base = document.getElementById(baseId);
 
         this.bird = bird;
+
+        this.backgroundMovementRate = 0.1;
+        this.backgroundPosition = 0;
+
+        this.foregroundMovementRate = 1;
+        this.foregroundPosition = 0;
 
         this.currentScore = 0;
         this.higestScore = localStorage.getItem('flappyBirdHighScore')
@@ -35,11 +47,22 @@ class FlappyBird extends Canvas {
     }
 
     animateBackground = () => {
+        if (!this.paused) {
+            this.backgroundPosition += this.backgroundMovementRate;
+            this.background.style.left = (-this.backgroundPosition) + 'px';
 
+            if (this.backgroundPosition >= GAME_BACKGROUND_IMG_WIDTH) this.backgroundPosition = 0;
+        }
     }
 
     animateBase = () => {
+        if (!this.paused) {
+            this.foregroundPosition += this.foregroundMovementRate;
+            this.base.style.left = (-this.foregroundPosition) + 'px';
 
+
+            if (this.foregroundPosition >= GAME_BASE_IMG_WIDTH) this.foregroundPosition = 0;
+        }
     }
 
     animateBird = () => {
@@ -55,6 +78,9 @@ class FlappyBird extends Canvas {
             this.clearCanvas();
 
             this.animateBird();
+            this.animateBackground();
+            this.animateBase();
+
             this.checkCollision();
         }
 
