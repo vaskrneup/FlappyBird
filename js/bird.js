@@ -1,4 +1,10 @@
-import {ACCELERATION, GAME_BACKGROUND_IMG_HEIGHT, GAME_BACKGROUND_IMG_WIDTH} from "./constants.js";
+import {
+    ACCELERATION,
+    GAME_BACKGROUND_IMG_HEIGHT,
+    GAME_BACKGROUND_IMG_WIDTH,
+    BIRD_MID_FLAP_IMG,
+    BIRD_DOWN_FLAP_IMG, BIRD_UP_FLAP_IMG
+} from "./constants.js";
 
 
 export class Bird {
@@ -7,9 +13,9 @@ export class Bird {
         this.y = y || ~~(GAME_BACKGROUND_IMG_HEIGHT / 2);
         this.acceleration = acceleration || ACCELERATION;
 
-        this.downFlapImage = downFlapImage;
-        this.midFlapImage = midFlapImage;
-        this.upFlapImage = upFlapImage;
+        this.downFlapImage = downFlapImage || BIRD_DOWN_FLAP_IMG;
+        this.midFlapImage = midFlapImage || BIRD_MID_FLAP_IMG;
+        this.upFlapImage = upFlapImage || BIRD_UP_FLAP_IMG;
 
         this.image = this.midFlapImage;
         this.currentImageIndex = 1;
@@ -29,19 +35,22 @@ export class Bird {
         this.fallRate = 1;
         this.falling = true;
 
-        this.jumpCount = 0;
         this.jumpLenPerClick = jumpLenPerClick || 20;
+
+        this.paused = false;
 
         this.animateBird();
     }
 
     animateBird = () => {
         setInterval(() => {
-            if (this.currentImageIndex === 2) this.imageDirection = -1;
-            else if (this.currentImageIndex === 0) this.imageDirection = 1;
+            if (!this.paused) {
+                if (this.currentImageIndex === 2) this.imageDirection = -1;
+                else if (this.currentImageIndex === 0) this.imageDirection = 1;
 
-            this.currentImageIndex += this.imageDirection;
-            this.image = this.IMAGE_MAPPER[this.currentImageIndex];
+                this.currentImageIndex += this.imageDirection;
+                this.image = this.IMAGE_MAPPER[this.currentImageIndex];
+            }
         }, 500);
     }
 
@@ -50,22 +59,30 @@ export class Bird {
         this.falling = false;
 
         const jump = setInterval(() => {
-            this.fallRate = 1;
-            this.y -= 1;
-            jumpCount++;
+            if (!this.paused) {
+                this.fallRate = 1;
+                this.y -= 1;
+                jumpCount++;
 
-            if (jumpCount >= this.jumpLenPerClick) {
-                clearInterval(jump);
-                this.falling = true;
+                if (jumpCount >= this.jumpLenPerClick) {
+                    clearInterval(jump);
+                    this.falling = true;
+                }
             }
         }, 16.67)
     }
 
     fall = () => {
-        if (this.falling) {
-            this.fallRate += this.acceleration;
-            this.y += this.fallRate;
+        if (!this.paused) {
+            if (this.falling) {
+                this.fallRate += this.acceleration;
+                this.y += this.fallRate;
+            }
         }
         requestAnimationFrame(this.fall);
     }
+
+    pause = () => this.paused = true;
+
+    play = () => this.paused = false;
 }
