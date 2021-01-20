@@ -42,11 +42,17 @@
 }
 
 #high-score {
+    position: absolute;
+    top: 30px;
+    left: 48%;
+    transform: translate(-50%, -50%);
+
     color: white;
     margin: 20px;
 
     font-family: monospace;
     font-size: 50px;
+    text-align: center;
 
     text-shadow: 4px 4px #131313;
 }
