@@ -29,6 +29,44 @@
     background-image: url("../assets/images/background/base.png");
 }
 
+.welcome-screen {
+    position: absolute;
+    top: 0;
+
+    width: 1200px;
+    height: 624px;
+
+    text-align: center;
+
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#high-score {
+    color: white;
+    margin: 20px;
+
+    font-family: monospace;
+    font-size: 50px;
+
+    text-shadow: 4px 4px #131313;
+}
+
+.welcome-message-container {
+    margin: 90px 30px;
+}
+
+.start-game-message {
+    color: white;
+
+    font-family: monospace;
+    font-size: 30px;
+}
+
+.game-info {
+    color: #e0e0e0;
+    font-family: monospace;
+}
+
 .canvas {
     position: absolute;
     top: 0;

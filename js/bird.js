@@ -22,7 +22,7 @@ export class Bird {
         this.imageDirection = 1;
 
         this.speed = 1;
-        
+
         this.animateBird();
     }
 
