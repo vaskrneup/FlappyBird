@@ -2,12 +2,6 @@ import {ACCELERATION, GAME_BACKGROUND_IMG_HEIGHT, GAME_BACKGROUND_IMG_WIDTH} fro
 
 
 export class Bird {
-    IMAGE_MAPPER = {
-        '0': this.downFlapImage,
-        '1': this.midFlapImage,
-        '2': this.upFlapImage
-    }
-
     constructor(x, y, acceleration, downFlapImage, midFlapImage, upFlapImage) {
         this.x = x || ~~(GAME_BACKGROUND_IMG_WIDTH / 2);
         this.y = y || ~~(GAME_BACKGROUND_IMG_HEIGHT / 2);
@@ -26,6 +20,12 @@ export class Bird {
 
         this.speed = 1;
 
+        this.IMAGE_MAPPER = {
+            '0': this.downFlapImage,
+            '1': this.midFlapImage,
+            '2': this.upFlapImage
+        }
+
         this.animateBird();
     }
 
@@ -36,7 +36,7 @@ export class Bird {
 
             this.currentImageIndex += this.imageDirection;
             this.image = this.IMAGE_MAPPER[this.currentImageIndex];
-        });
+        }, 1000);
     }
 
     fly = () => {
