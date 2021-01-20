@@ -11,14 +11,21 @@ export class Canvas {
 
     }
 
-    initialRun = () => {
+    _initialRun = () => {
         this.first = false;
         this.render();
     }
 
-    run = () => {
-        this.pause = false;
+    initialRun = () => {
+        this._initialRun();
+    }
 
+    _run = () => {
+        this.pause = false;
         this.first ? this.initialRun() : null;
+    }
+
+    run = () => {
+        this._run();
     }
 }
