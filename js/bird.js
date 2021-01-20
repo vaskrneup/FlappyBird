@@ -21,6 +21,9 @@ export class Bird {
         this.currentImageIndex = 1;
         this.imageDirection = 1;
 
+        this.imageWidth = this.image.width;
+        this.imageHeight = this.image.height;
+
         this.speed = 1;
 
         this.animateBird();
