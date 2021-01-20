@@ -30,6 +30,14 @@ class FlappyBird extends Canvas {
         this.higestScore = localStorage.getItem('flappyBirdHighScore')
     }
 
+    generateObstacle = () => {
+
+    }
+
+    clearObstacle = () => {
+
+    }
+
     onKeyPress = (e) => {
         switch (e.code) {
             case ('Space'): {

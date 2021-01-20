@@ -58,18 +58,22 @@ export class Bird {
         let jumpCount = 0;
         this.falling = false;
 
-        const jump = setInterval(() => {
+        const animateBirdGoingUpward = () => {
             if (!this.paused) {
                 this.fallRate = 1;
                 this.y -= 1;
                 jumpCount++;
 
                 if (jumpCount >= this.jumpLenPerClick) {
-                    clearInterval(jump);
+                    cancelAnimationFrame(animateBirdId);
                     this.falling = true;
+                } else {
+                    animateBirdId = requestAnimationFrame(animateBirdGoingUpward);
                 }
             }
-        }, 16.67)
+        }
+
+        let animateBirdId = requestAnimationFrame(animateBirdGoingUpward);
     }
 
     fall = () => {
