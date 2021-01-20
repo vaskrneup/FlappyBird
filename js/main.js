@@ -1,11 +1,14 @@
 import {Canvas} from "./canvas.js";
 import {Bird} from "./bird.js";
+import {Pipe} from "./obstacle.js";
 import {
     BIRD_DOWN_FLAP_IMG,
     BIRD_MID_FLAP_IMG,
     BIRD_UP_FLAP_IMG,
     GAME_BACKGROUND_IMG_WIDTH,
-    GAME_BASE_IMG_WIDTH
+    GAME_BASE_IMG_WIDTH,
+    OBSTACLE_PASSABLE_HEIGHT,
+    GENERATE_OBSTACLE_PER_UNIT_LENGTH
 } from "./constants.js";
 
 
@@ -28,14 +31,24 @@ class FlappyBird extends Canvas {
 
         this.currentScore = 0;
         this.higestScore = localStorage.getItem('flappyBirdHighScore')
+
+        this.activeObstacles = [];
+        this.obstacleGenerationLengthCount = GENERATE_OBSTACLE_PER_UNIT_LENGTH;
     }
 
     generateObstacle = () => {
-
+        if (!this.paused) {
+            this.activeObstacles.push(new Pipe(this.width, -100, true, this.foregroundMovementRate));
+            this.activeObstacles.push(new Pipe(this.width, 300, false, this.foregroundMovementRate));
+        }
     }
 
-    clearObstacle = () => {
-
+    clearObstacle = (obstacle, index) => {
+        if (!this.paused) {
+            if ((obstacle.x + obstacle.width) <= 0) {
+                this.activeObstacles.splice(index, 1);
+            }
+        }
     }
 
     onKeyPress = (e) => {
@@ -68,9 +81,14 @@ class FlappyBird extends Canvas {
             this.foregroundPosition += this.foregroundMovementRate;
             this.base.style.left = (-this.foregroundPosition) + 'px';
 
-
             if (this.foregroundPosition >= GAME_BASE_IMG_WIDTH) this.foregroundPosition = 0;
         }
+    }
+
+    animatePipe = (obstacle) => {
+        obstacle.moveLeft();
+        obstacle.speed = this.foregroundMovementRate;
+        this.ctx.drawImage(obstacle.image, obstacle.x, obstacle.y);
     }
 
     animateBird = () => {
@@ -84,10 +102,20 @@ class FlappyBird extends Canvas {
     render = () => {
         if (!this.paused) {
             this.clearCanvas();
+            this.obstacleGenerationLengthCount += this.foregroundMovementRate;
+
+            if (this.obstacleGenerationLengthCount >= GENERATE_OBSTACLE_PER_UNIT_LENGTH) {
+                this.generateObstacle();
+                this.obstacleGenerationLengthCount = 0;
+            }
 
             this.animateBird();
             this.animateBackground();
             this.animateBase();
+            this.activeObstacles.forEach((obstacle, index) => {
+                this.animatePipe(obstacle);
+                this.clearObstacle(obstacle, index);
+            });
 
             this.checkCollision();
         }

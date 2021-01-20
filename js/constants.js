@@ -1,6 +1,14 @@
 export const CANVAS_WIDTH = 480;
 export const CANVAS_HEIGHT = 400;
 
+export const PIPE_BOTTOM = new Image();
+PIPE_BOTTOM.src = 'assets/images/pipe/pipe-green.png';
+export const PIPE_TOP = new Image();
+PIPE_TOP.src = 'assets/images/pipe/pipe-green-top.png';
+
+export const OBSTACLE_PASSABLE_HEIGHT = 200;
+export const GENERATE_OBSTACLE_PER_UNIT_LENGTH = 200;
+
 export const GAME_BACKGROUND_IMG_WIDTH = 288;
 export const GAME_BACKGROUND_IMG_HEIGHT = 512;
 
