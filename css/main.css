@@ -1,0 +1,38 @@
+.game-container {
+    position: relative;
+
+    width: 1200px;
+    height: 624px;
+    overflow: hidden;
+
+    margin: 10px auto;
+    border: 1px solid black;
+}
+
+.game-background {
+    position: absolute;
+    top: 0;
+
+    width: 1400px;
+    height: 512px;
+
+    background-image: url("../assets/images/background/background-day.png");
+}
+
+.game-ground {
+    position: absolute;
+    bottom: 0;
+
+    width: 1200px;
+    height: 112px;
+
+    background-image: url("../assets/images/background/base.png");
+}
+
+.canvas {
+    position: absolute;
+    top: 0;
+
+    width: 1200px;
+    height: 512px;
+}
