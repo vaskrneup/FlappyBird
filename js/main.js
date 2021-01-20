@@ -12,6 +12,8 @@ import {
     GENERATE_OBSTACLE_PER_UNIT_LENGTH
 } from "./constants.js";
 
+// BETTER ALGO FOR CREATING OBSTACLES !!
+// FLUID JUMPS !!
 
 class FlappyBird extends Canvas {
     constructor(welcomeScreenId, canvasID, replayScreenId, currentScoreId, highestScoreID, bird, backgroundId, baseId) {
@@ -141,7 +143,7 @@ class FlappyBird extends Canvas {
         obstacle.bottom.moveLeft();
 
         obstacle.top.speed = this.foregroundMovementRate;
-        obstacle.top.bottom = this.foregroundMovementRate;
+        obstacle.bottom.speed = this.foregroundMovementRate;
 
         this.ctx.drawImage(obstacle.top.image, obstacle.top.x, obstacle.top.y);
         this.ctx.drawImage(obstacle.bottom.image, obstacle.bottom.x, obstacle.bottom.y);
@@ -172,6 +174,9 @@ class FlappyBird extends Canvas {
             this.currentScore++;
             this.currentScoreDOM.innerHTML = this.currentScore;
             this.hasGeneratedNewObstacle = false;
+
+            this.foregroundMovementRate += 0.1;
+            this.backgroundMovementRate += 0.1;
         }
     }
 
