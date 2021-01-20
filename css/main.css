@@ -1,8 +1,8 @@
 .game-container {
     position: relative;
 
-    width: 1200px;
-    height: 624px;
+    width: 480px;
+    height: 512px;
     overflow: hidden;
 
     margin: 10px auto;
@@ -17,24 +17,26 @@
     height: 512px;
 
     background-image: url("../assets/images/background/background-day.png");
+    background-repeat: no-repeat;
 }
 
 .game-ground {
     position: absolute;
     bottom: 0;
 
-    width: 1200px;
+    width: 480px;
     height: 112px;
 
     background-image: url("../assets/images/background/base.png");
+    background-repeat: no-repeat;
 }
 
 .welcome-screen {
     position: absolute;
     top: 0;
 
-    width: 1200px;
-    height: 624px;
+    width: 480px;
+    height: 512px;
 
     text-align: center;
 
@@ -77,6 +79,6 @@
     position: absolute;
     top: 0;
 
-    width: 1200px;
-    height: 512px;
+    width: 480px;
+    height: 400px;
 }
