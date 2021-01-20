@@ -2,7 +2,7 @@ import {ACCELERATION, GAME_BACKGROUND_IMG_HEIGHT, GAME_BACKGROUND_IMG_WIDTH} fro
 
 
 export class Bird {
-    constructor(x, y, acceleration, downFlapImage, midFlapImage, upFlapImage) {
+    constructor(x, y, acceleration, downFlapImage, midFlapImage, upFlapImage, jumpLenPerClick) {
         this.x = x || ~~(GAME_BACKGROUND_IMG_WIDTH / 2);
         this.y = y || ~~(GAME_BACKGROUND_IMG_HEIGHT / 2);
         this.acceleration = acceleration || ACCELERATION;
@@ -26,6 +26,12 @@ export class Bird {
             '2': this.upFlapImage
         }
 
+        this.fallRate = 1;
+        this.falling = true;
+
+        this.jumpCount = 0;
+        this.jumpLenPerClick = jumpLenPerClick || 20;
+
         this.animateBird();
     }
 
@@ -36,16 +42,30 @@ export class Bird {
 
             this.currentImageIndex += this.imageDirection;
             this.image = this.IMAGE_MAPPER[this.currentImageIndex];
-        }, 1000);
+        }, 500);
     }
 
     fly = () => {
-        this.speed += this.acceleration;
-        this.x -= this.speed;
+        let jumpCount = 0;
+        this.falling = false;
+
+        const jump = setInterval(() => {
+            this.fallRate = 1;
+            this.y -= 1;
+            jumpCount++;
+
+            if (jumpCount >= this.jumpLenPerClick) {
+                clearInterval(jump);
+                this.falling = true;
+            }
+        }, 16.67)
     }
 
     fall = () => {
-        this.speed += this.acceleration;
-        this.x += this.speed;
+        if (this.falling) {
+            this.fallRate += this.acceleration;
+            this.y += this.fallRate;
+        }
+        requestAnimationFrame(this.fall);
     }
 }

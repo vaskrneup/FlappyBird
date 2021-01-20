@@ -16,4 +16,4 @@ BIRD_UP_FLAP_IMG.src = 'assets/images/bird/bluebird-midflap.png';
 export const BIRD_MID_FLAP_IMG = new Image();
 BIRD_MID_FLAP_IMG.src = 'assets/images/bird/bluebird-upflap.png';
 
-export const ACCELERATION = 9.8;
+export const ACCELERATION = 0.1;
