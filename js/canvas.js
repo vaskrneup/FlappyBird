@@ -12,7 +12,8 @@ export class Canvas {
     }
 
     initialRun = () => {
-
+        this.first = false;
+        this.render();
     }
 
     run = () => {
