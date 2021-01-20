@@ -1,4 +1,4 @@
-import {PIPE_BOTTOM, PIPE_TOP} from "./constants.js";
+import {PIPE_BOTTOM, PIPE_TOP, CANVAS_HEIGHT} from "./constants.js";
 
 export class Pipe {
     constructor(x, y, top, speed) {
@@ -11,6 +11,12 @@ export class Pipe {
 
         this.width = this.image.width;
         this.height = this.image.height;
+
+        if (top) {
+            this.pipeHeight = this.height - y;
+        } else {
+            this.pipeHeight = CANVAS_HEIGHT - this.height
+        }
     }
 
     moveLeft = () => {

@@ -6,7 +6,7 @@ PIPE_BOTTOM.src = 'assets/images/pipe/pipe-green.png';
 export const PIPE_TOP = new Image();
 PIPE_TOP.src = 'assets/images/pipe/pipe-green-top.png';
 
-export const OBSTACLE_PASSABLE_HEIGHT = 200;
+export const OBSTACLE_PASSABLE_HEIGHT = 100;
 export const GENERATE_OBSTACLE_PER_UNIT_LENGTH = 200;
 
 export const GAME_BACKGROUND_IMG_WIDTH = 288;

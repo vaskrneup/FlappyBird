@@ -1,6 +1,7 @@
 import {Canvas} from "./canvas.js";
 import {Bird} from "./bird.js";
 import {Pipe} from "./obstacle.js";
+import {random} from "./utils.js";
 import {
     BIRD_DOWN_FLAP_IMG,
     BIRD_MID_FLAP_IMG,
@@ -38,14 +39,19 @@ class FlappyBird extends Canvas {
 
     generateObstacle = () => {
         if (!this.paused) {
-            this.activeObstacles.push(new Pipe(this.width, -100, true, this.foregroundMovementRate));
-            this.activeObstacles.push(new Pipe(this.width, 300, false, this.foregroundMovementRate));
+            const obstacleYValue = random.randInt(100, this.height - 100);
+            const topObstacle = new Pipe(this.width, -obstacleYValue, true, this.foregroundMovementRate);
+
+            this.activeObstacles.push({
+                top: topObstacle,
+                bottom: new Pipe(this.width, -obstacleYValue + topObstacle.height + OBSTACLE_PASSABLE_HEIGHT, false, this.foregroundMovementRate)
+            });
         }
     }
 
     clearObstacle = (obstacle, index) => {
         if (!this.paused) {
-            if ((obstacle.x + obstacle.width) <= 0) {
+            if ((obstacle.top.x + obstacle.top.width) <= 0) {
                 this.activeObstacles.splice(index, 1);
             }
         }
@@ -86,9 +92,14 @@ class FlappyBird extends Canvas {
     }
 
     animatePipe = (obstacle) => {
-        obstacle.moveLeft();
-        obstacle.speed = this.foregroundMovementRate;
-        this.ctx.drawImage(obstacle.image, obstacle.x, obstacle.y);
+        obstacle.top.moveLeft();
+        obstacle.bottom.moveLeft();
+
+        obstacle.top.speed = this.foregroundMovementRate;
+        obstacle.top.bottom = this.foregroundMovementRate;
+
+        this.ctx.drawImage(obstacle.top.image, obstacle.top.x, obstacle.top.y);
+        this.ctx.drawImage(obstacle.bottom.image, obstacle.bottom.x, obstacle.bottom.y);
     }
 
     animateBird = () => {
@@ -97,6 +108,12 @@ class FlappyBird extends Canvas {
 
     checkCollision = () => {
         if ((this.bird.y <= 0) || (this.bird.y + this.bird.height) >= this.height) this.handleGameOver();
+    }
+
+    checkCollisionWithObstacle = (obstacle) => {
+        // if (((this.bird.x + this.bird.width) >= obstacle.top.x) && (this.bird.y)) {
+        //     this.pause();
+        // }
     }
 
     render = () => {
@@ -115,6 +132,7 @@ class FlappyBird extends Canvas {
             this.activeObstacles.forEach((obstacle, index) => {
                 this.animatePipe(obstacle);
                 this.clearObstacle(obstacle, index);
+                this.checkCollisionWithObstacle(obstacle);
             });
 
             this.checkCollision();
