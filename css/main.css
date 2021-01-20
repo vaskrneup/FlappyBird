@@ -41,7 +41,22 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-#high-score {
+#game-over-screen {
+    display: none;
+}
+
+#broke-high-score {
+    color: white;
+    margin: 20px;
+
+    font-family: monospace;
+    font-size: 30px;
+    text-align: center;
+
+    display: none;
+}
+
+.display-score {
     position: absolute;
     top: 30px;
     left: 48%;
@@ -57,6 +72,10 @@
     text-shadow: 4px 4px #131313;
 }
 
+#current-score {
+    display: none;
+}
+
 .welcome-message-container {
     margin: 90px 30px;
 }
@@ -66,6 +85,10 @@
 
     font-family: monospace;
     font-size: 30px;
+}
+
+.play-again-message {
+    margin: 50px 0;
 }
 
 .game-info {
