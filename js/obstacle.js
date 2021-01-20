@@ -12,11 +12,8 @@ export class Pipe {
         this.width = this.image.width;
         this.height = this.image.height;
 
-        if (top) {
-            this.pipeHeight = this.height - y;
-        } else {
-            this.pipeHeight = CANVAS_HEIGHT - this.height
-        }
+        this.pipeHeight = top ? (this.height + y) : (this.height - this.y);
+        this.pipeY = top ? (this.pipeHeight) : y;
     }
 
     moveLeft = () => {

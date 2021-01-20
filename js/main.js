@@ -42,6 +42,7 @@ class FlappyBird extends Canvas {
             const obstacleYValue = random.randInt(100, this.height - 100);
             const topObstacle = new Pipe(this.width, -obstacleYValue, true, this.foregroundMovementRate);
 
+            // console.log(topObstacle.pipeY)
             this.activeObstacles.push({
                 top: topObstacle,
                 bottom: new Pipe(this.width, -obstacleYValue + topObstacle.height + OBSTACLE_PASSABLE_HEIGHT, false, this.foregroundMovementRate)
@@ -111,9 +112,18 @@ class FlappyBird extends Canvas {
     }
 
     checkCollisionWithObstacle = (obstacle) => {
-        // if (((this.bird.x + this.bird.width) >= obstacle.top.x) && (this.bird.y)) {
-        //     this.pause();
-        // }
+        const topObstacle = obstacle.top;
+        const bottomObstacle = obstacle.bottom;
+
+        const hasTouchedInXAxis = (
+            ((this.bird.x + this.bird.width) >= topObstacle.x) && (this.bird.x <= (topObstacle.x + topObstacle.width))
+        );
+        const hasTouchedInYAxisOfTopObstacle = (this.bird.y <= topObstacle.pipeY);
+        const hasTouchedYAxisOfBottomObstacle = ((this.bird.y + this.bird.height) >= bottomObstacle.pipeY);
+
+        if (hasTouchedInXAxis && (hasTouchedInYAxisOfTopObstacle || hasTouchedYAxisOfBottomObstacle)) {
+            this.pause();
+        }
     }
 
     render = () => {
