@@ -16,15 +16,19 @@ import {
 // FLUID JUMPS !!
 
 class FlappyBird extends Canvas {
-    constructor(welcomeScreenId, canvasID, replayScreenId, currentScoreId, highestScoreID, bird, backgroundId, baseId, actionKeyCode, gameContainerId) {
-        super(canvasID);
+    constructor(gameContainerId, bird, actionKeyCode) {
+        super(document.getElementById(gameContainerId).querySelector('.canvas'));
 
-        this.welcomeScreen = document.getElementById(welcomeScreenId);
-        this.replayScreen = document.getElementById(replayScreenId);
-        this.background = document.getElementById(backgroundId);
-        this.base = document.getElementById(baseId);
-        this.currentScoreDOM = document.getElementById(currentScoreId);
-        this.highestScoreDOM = document.getElementById(highestScoreID);
+        this.gameContainer = document.getElementById(gameContainerId);
+        this.actionKeyCode = actionKeyCode;
+
+        this.welcomeScreen = this.gameContainer.querySelector('.welcome-screen');
+        this.replayScreen = this.gameContainer.querySelector('.game-over-screen');
+        this.background = this.gameContainer.querySelector('.game-background');
+        this.base = this.gameContainer.querySelector('.game-ground');
+        this.currentScoreDOM = this.gameContainer.querySelector('.current-score');
+        this.highestScoreDOM = this.gameContainer.querySelector('.highest-score');
+
 
         this.bird = bird || new Bird(null, null, null, BIRD_DOWN_FLAP_IMG, BIRD_MID_FLAP_IMG, BIRD_UP_FLAP_IMG);
 
@@ -41,9 +45,6 @@ class FlappyBird extends Canvas {
         this.obstacleGenerationLengthCount = GENERATE_OBSTACLE_PER_UNIT_LENGTH;
         this.hasGeneratedNewObstacle = false;
         this.lastObstacleYPosition = 200;
-
-        this.actionKeyCode = actionKeyCode;
-        this.gameContainer = document.getElementById(gameContainerId);
     }
 
     reset = () => {
@@ -124,7 +125,7 @@ class FlappyBird extends Canvas {
         if (this.currentScore > this.higestScore) {
             localStorage.setItem('flappyBirdHighScore', this.currentScore);
             this.higestScore = this.currentScore;
-            this.replayScreen.querySelector('#broke-high-score').style.display = 'block';
+            this.replayScreen.querySelector('.broke-high-score').style.display = 'block';
         }
     }
 
@@ -225,7 +226,7 @@ class FlappyBird extends Canvas {
     }
 
     run = () => {
-        this.replayScreen.querySelector('#broke-high-score').style.display = 'none';
+        this.replayScreen.querySelector('.broke-high-score').style.display = 'none';
         this.currentScoreDOM.innerHTML = this.currentScore;
         this._run();
     }
@@ -255,9 +256,7 @@ class FlappyBird extends Canvas {
 function main() {
     // document.getElementById('high-score').innerText = +localStorage.getItem('flappyBirdHighScore') || '0';
     const flappyBird = new FlappyBird(
-        'welcome-screen', 'game-canvas', 'game-over-screen',
-        'current-score', 'high-score', null, 'game-background',
-        'game-ground', 'Enter', 'first-game'
+        'first-game', null, 'Enter'
     );
     flappyBird.init();
 }

@@ -28,7 +28,7 @@
     background-image: url("../assets/images/background/base.png");
 }
 
-.welcome-screen {
+.screen {
     position: absolute;
     top: 0;
 
@@ -40,11 +40,15 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
+.game-over-screen {
+    display: none;
+}
+
 #game-over-screen {
     display: none;
 }
 
-#broke-high-score {
+.broke-high-score {
     color: white;
     margin: 20px;
 

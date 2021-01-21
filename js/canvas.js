@@ -1,8 +1,8 @@
 import {CANVAS_HEIGHT, CANVAS_WIDTH} from "./constants.js";
 
 export class Canvas {
-    constructor(canvasID) {
-        this.canvas = document.getElementById(canvasID);
+    constructor(canvas) {
+        this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
 
         this.canvas.width = CANVAS_WIDTH;

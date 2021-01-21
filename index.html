@@ -10,10 +10,10 @@
 <body>
 
 <div class="game-container" id="first-game">
-    <div class="game-background" id="game-background"></div>
-    <div class="game-ground" id="game-ground"></div>
+    <div class="game-background"></div>
+    <div class="game-ground"></div>
 
-    <div class="welcome-screen" id="welcome-screen">
+    <div class="screen welcome-screen">
         <div class="welcome-message-container">
             <img src="assets/images/infoGraphics/message.png" alt="Welcome Image">
             <h3 class="start-game-message key-bind">Press 'SPACE' key to start the game</h3>
@@ -24,15 +24,15 @@
         </p>
     </div>
 
-    <canvas class="canvas" id="game-canvas"></canvas>
-    <h3 id="high-score" class="display-score">0</h3>
+    <canvas class="canvas"></canvas>
+    <h3 class="display-score current-score">0</h3>
 
-    <div class="welcome-screen" id="game-over-screen">
+    <div class="screen game-over-screen">
         <div class="welcome-message-container">
             <img src="assets/images/infoGraphics/gameover.png" alt="Welcome Image">
             <h3 class="start-game-message play-again-message key-bind">Press 'SPACE' key to play again</h3>
 
-            <h3 id="broke-high-score">
+            <h3 class="broke-high-score">
                 🎉🎉
                 <br>
                 High Score !!!
@@ -43,7 +43,7 @@
             Go past as many obstacle as possible, press 'SPACE' key to jump.
         </p>
     </div>
-    <h3 id="current-score" class="display-score">0</h3>
+    <h3 id="current-score" class="display-score highest-score">0</h3>
 </div>
 
 <script src="js/main.js" type="module"></script>
