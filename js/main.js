@@ -16,7 +16,7 @@ import {
 // FLUID JUMPS !!
 
 class FlappyBird extends Canvas {
-    constructor(welcomeScreenId, canvasID, replayScreenId, currentScoreId, highestScoreID, bird, backgroundId, baseId) {
+    constructor(welcomeScreenId, canvasID, replayScreenId, currentScoreId, highestScoreID, bird, backgroundId, baseId, actionKeyCode, gameContainerId) {
         super(canvasID);
 
         this.welcomeScreen = document.getElementById(welcomeScreenId);
@@ -26,7 +26,7 @@ class FlappyBird extends Canvas {
         this.currentScoreDOM = document.getElementById(currentScoreId);
         this.highestScoreDOM = document.getElementById(highestScoreID);
 
-        this.bird = bird;
+        this.bird = bird || new Bird(null, null, null, BIRD_DOWN_FLAP_IMG, BIRD_MID_FLAP_IMG, BIRD_UP_FLAP_IMG);
 
         this.backgroundMovementRate = 0.1;
         this.backgroundPosition = 0;
@@ -41,6 +41,9 @@ class FlappyBird extends Canvas {
         this.obstacleGenerationLengthCount = GENERATE_OBSTACLE_PER_UNIT_LENGTH;
         this.hasGeneratedNewObstacle = false;
         this.lastObstacleYPosition = 200;
+
+        this.actionKeyCode = actionKeyCode;
+        this.gameContainer = document.getElementById(gameContainerId);
     }
 
     reset = () => {
@@ -90,7 +93,7 @@ class FlappyBird extends Canvas {
 
     onKeyPress = (e) => {
         switch (e.code) {
-            case ('Space'): {
+            case (this.actionKeyCode): {
                 this.bird.fly();
             }
         }
@@ -101,7 +104,7 @@ class FlappyBird extends Canvas {
     }
 
     handleReplay = (e) => {
-        if (e.code === 'Space') {
+        if (e.code === this.actionKeyCode) {
             this.replayScreen.style.display = 'none';
 
             this.reset();
@@ -180,8 +183,8 @@ class FlappyBird extends Canvas {
             this.currentScoreDOM.innerHTML = this.currentScore;
             this.hasGeneratedNewObstacle = false;
 
-            this.foregroundMovementRate += 0.1;
-            this.backgroundMovementRate += 0.1;
+            // this.foregroundMovementRate += 0.1;
+            // this.backgroundMovementRate += 0.1;
         }
     }
 
@@ -227,24 +230,36 @@ class FlappyBird extends Canvas {
         this._run();
     }
 
+    runFlappyBird = (e) => {
+        if (e.code === this.actionKeyCode) {
+            this.run();
+            document.removeEventListener('keypress', this.runFlappyBird);
+        }
+    }
+
+    init = () => {
+        if (this.actionKeyCode !== 'Space') {
+            this.gameContainer.querySelectorAll('.key-bind').forEach(element => {
+                element.innerHTML = element.innerHTML.replace('SPACE', this.actionKeyCode.toUpperCase());
+            });
+        }
+
+        document.addEventListener('keypress', this.runFlappyBird);
+    }
+
     pause = () => this.paused = true;
 
     play = () => this.paused = false;
 }
 
-function runFlappyBird(e) {
-    if (e.code === 'Space') {
-        const bird = new Bird(null, null, null, BIRD_DOWN_FLAP_IMG, BIRD_MID_FLAP_IMG, BIRD_UP_FLAP_IMG);
-        const flappyBird = new FlappyBird('welcome-screen', 'game-canvas', 'game-over-screen', 'current-score', 'high-score', bird, 'game-background', 'game-ground');
-
-        flappyBird.run();
-        document.removeEventListener('keypress', runFlappyBird);
-    }
-}
-
 function main() {
-    document.getElementById('high-score').innerText = +localStorage.getItem('flappyBirdHighScore') || '0';
-    document.addEventListener('keypress', runFlappyBird);
+    // document.getElementById('high-score').innerText = +localStorage.getItem('flappyBirdHighScore') || '0';
+    const flappyBird = new FlappyBird(
+        'welcome-screen', 'game-canvas', 'game-over-screen',
+        'current-score', 'high-score', null, 'game-background',
+        'game-ground', 'Enter', 'first-game'
+    );
+    flappyBird.init();
 }
 
 main();

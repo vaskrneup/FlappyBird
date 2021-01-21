@@ -6,7 +6,6 @@
     overflow: hidden;
 
     margin: 10px auto;
-    border: 1px solid black;
 }
 
 .game-background {
@@ -58,13 +57,9 @@
 
 .display-score {
     position: absolute;
-    top: 30px;
-    left: 48%;
-    transform: translate(-50%, -50%);
+    width: 480px;
 
     color: white;
-    margin: 20px;
-
     font-family: monospace;
     font-size: 50px;
     text-align: center;
