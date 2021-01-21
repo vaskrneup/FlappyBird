@@ -245,6 +245,7 @@ class FlappyBird extends Canvas {
             });
         }
 
+        this.highestScoreDOM.innerHTML = localStorage.getItem('flappyBirdHighScore') || '0';
         document.addEventListener('keypress', this.runFlappyBird);
     }
 
@@ -254,7 +255,6 @@ class FlappyBird extends Canvas {
 }
 
 function main() {
-    // document.getElementById('high-score').innerText = +localStorage.getItem('flappyBirdHighScore') || '0';
     const flappyBird1 = new FlappyBird('first-game', null, 'Enter');
     const flappyBird2 = new FlappyBird('second-game', null, 'Space');
     flappyBird1.init();
