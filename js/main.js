@@ -255,10 +255,10 @@ class FlappyBird extends Canvas {
 
 function main() {
     // document.getElementById('high-score').innerText = +localStorage.getItem('flappyBirdHighScore') || '0';
-    const flappyBird = new FlappyBird(
-        'first-game', null, 'Enter'
-    );
-    flappyBird.init();
+    const flappyBird1 = new FlappyBird('first-game', null, 'Enter');
+    const flappyBird2 = new FlappyBird('second-game', null, 'Space');
+    flappyBird1.init();
+    flappyBird2.init();
 }
 
 main();

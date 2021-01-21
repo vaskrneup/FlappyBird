@@ -1,11 +1,17 @@
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
 .game-container {
     position: relative;
 
+    float: left;
     width: 480px;
     height: 512px;
     overflow: hidden;
 
-    margin: 10px auto;
+    margin: 10px 10px;
 }
 
 .game-background {
@@ -44,9 +50,6 @@
     display: none;
 }
 
-#game-over-screen {
-    display: none;
-}
 
 .broke-high-score {
     color: white;
@@ -71,7 +74,7 @@
     text-shadow: 4px 4px #131313;
 }
 
-#current-score {
+.current-score {
     display: none;
 }
 
