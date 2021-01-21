@@ -9,7 +9,7 @@ import {
     GAME_BACKGROUND_IMG_WIDTH,
     GAME_BASE_IMG_WIDTH,
     OBSTACLE_PASSABLE_HEIGHT,
-    GENERATE_OBSTACLE_PER_UNIT_LENGTH
+    GENERATE_OBSTACLE_PER_UNIT_LENGTH, OBSTACLE_RANGE
 } from "./constants.js";
 
 // BETTER ALGO FOR CREATING OBSTACLES !!
@@ -40,6 +40,7 @@ class FlappyBird extends Canvas {
         this.activeObstacles = [];
         this.obstacleGenerationLengthCount = GENERATE_OBSTACLE_PER_UNIT_LENGTH;
         this.hasGeneratedNewObstacle = false;
+        this.lastObstacleYPosition = 200;
     }
 
     reset = () => {
@@ -61,7 +62,12 @@ class FlappyBird extends Canvas {
 
     generateObstacle = () => {
         if (!this.paused) {
-            const obstacleYValue = random.randInt(100, this.height - 100);
+            let obstacleYValue = random.randInt(this.lastObstacleYPosition - OBSTACLE_RANGE / 2, this.lastObstacleYPosition + OBSTACLE_RANGE / 2);
+            obstacleYValue = obstacleYValue < 100 ? random.randInt(100, 200) : obstacleYValue;
+            obstacleYValue = obstacleYValue > this.height - 100 ? random.randInt(this.height - 100, this.height - 200) : obstacleYValue;
+
+            this.lastObstacleYPosition = obstacleYValue;
+
             const topObstacle = new Pipe(this.width, -obstacleYValue, true, this.foregroundMovementRate);
 
             // console.log(topObstacle.pipeY)
@@ -113,7 +119,6 @@ class FlappyBird extends Canvas {
         document.addEventListener('keypress', this.handleReplay);
 
         if (this.currentScore > this.higestScore) {
-            console.log(this.currentScore, this.higestScore)
             localStorage.setItem('flappyBirdHighScore', this.currentScore);
             this.higestScore = this.currentScore;
             this.replayScreen.querySelector('#broke-high-score').style.display = 'block';
@@ -217,6 +222,7 @@ class FlappyBird extends Canvas {
     }
 
     run = () => {
+        this.replayScreen.querySelector('#broke-high-score').style.display = 'none';
         this.currentScoreDOM.innerHTML = this.currentScore;
         this._run();
     }

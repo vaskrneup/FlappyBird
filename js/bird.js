@@ -40,7 +40,7 @@ export class Bird {
         this.fallRate = 1;
         this.falling = true;
 
-        this.jumpLenPerClick = jumpLenPerClick || 30;
+        this.jumpLenPerClick = jumpLenPerClick || 20;
 
         this.paused = false;
 
@@ -68,13 +68,14 @@ export class Bird {
     animateBird = () => {
         setInterval(() => {
             if (!this.paused) {
+                this.currentImageIndex += this.imageDirection;
+
                 if (this.currentImageIndex === 2) this.imageDirection = -1;
                 else if (this.currentImageIndex === 0) this.imageDirection = 1;
 
-                this.currentImageIndex += this.imageDirection;
                 this.image = this.IMAGE_MAPPER[this.currentImageIndex];
             }
-        }, 500);
+        }, 100);
     }
 
     fly = () => {
