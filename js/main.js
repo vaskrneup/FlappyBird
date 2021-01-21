@@ -9,7 +9,8 @@ import {
     GAME_BACKGROUND_IMG_WIDTH,
     GAME_BASE_IMG_WIDTH,
     OBSTACLE_PASSABLE_HEIGHT,
-    GENERATE_OBSTACLE_PER_UNIT_LENGTH, OBSTACLE_RANGE
+    GENERATE_OBSTACLE_PER_UNIT_LENGTH, OBSTACLE_RANGE,
+    GAME_HTML_TEMPLATE
 } from "./constants.js";
 
 // BETTER ALGO FOR CREATING OBSTACLES !!
@@ -17,6 +18,7 @@ import {
 
 class FlappyBird extends Canvas {
     constructor(gameContainerId, bird, actionKeyCode) {
+        document.getElementById(gameContainerId).innerHTML = GAME_HTML_TEMPLATE;
         super(document.getElementById(gameContainerId).querySelector('.canvas'));
 
         this.gameContainer = document.getElementById(gameContainerId);
@@ -255,8 +257,8 @@ class FlappyBird extends Canvas {
 }
 
 function main() {
-    const flappyBird1 = new FlappyBird('first-game', null, 'Enter');
-    const flappyBird2 = new FlappyBird('second-game', null, 'Space');
+    const flappyBird1 = new FlappyBird('first-game', null, 'Space');
+    const flappyBird2 = new FlappyBird('second-game', null, 'Enter');
     flappyBird1.init();
     flappyBird2.init();
 }

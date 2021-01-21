@@ -27,3 +27,42 @@ export const BIRD_MID_FLAP_IMG = new Image();
 BIRD_MID_FLAP_IMG.src = 'assets/images/bird/bluebird-upflap.png';
 
 export const ACCELERATION = 0.3;
+
+
+export const GAME_HTML_TEMPLATE = `
+<div class="game-background"></div>
+<div class="game-ground"></div>
+
+<div class="screen welcome-screen">
+    <div class="welcome-message-container">
+        <img src="assets/images/infoGraphics/message.png" alt="Welcome Image">
+        <h3 class="start-game-message key-bind">Press 'SPACE' key to start the game</h3>
+    </div>
+
+    <p class="game-info key-bind">
+        Go past as many obstacle as possible, press 'SPACE' key to jump.
+    </p>
+</div>
+
+<canvas class="canvas"></canvas>
+
+<div class="screen game-over-screen">
+    <div class="welcome-message-container">
+        <img src="assets/images/infoGraphics/gameover.png" alt="Welcome Image">
+        <h3 class="start-game-message play-again-message key-bind">Press 'SPACE' key to play again</h3>
+
+        <h3 class="broke-high-score">
+            🎉🎉
+            <br>
+            High Score !!!
+        </h3>
+    </div>
+
+    <p class="game-info key-bind">
+        Go past as many obstacle as possible, press 'SPACE' key to jump.
+    </p>
+</div>
+
+<h3 class="display-score current-score">0</h3>
+<h3 class="display-score highest-score">0</h3>
+`
